@@ -1,0 +1,105 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+
+html { scroll-behavior: smooth; }
+html, body {
+  background: #4a0000;
+  color: #e8e1d1;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection { background: #c8ad6b; color: #2a0000; }
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #9b8548; }
+
+@layer utilities {
+  .text-balance { text-wrap: balance; }
+
+  /* Hoja de papel envejecido / carta */
+  .papel {
+    background-color: #f3ead7;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(155,133,72,0.15), transparent 50%),
+      radial-gradient(ellipse at bottom right, rgba(109,0,0,0.10), transparent 55%),
+      url("data:image/svg+xml;utf8,<svg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.7' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.4 0 0 0 0 0.3 0 0 0 0 0.15 0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    color: #2a0000;
+  }
+
+  /* Burdeos profundo con grano */
+  .telon {
+    background-color: #6d0000;
+    background-image:
+      radial-gradient(ellipse at 30% 10%, rgba(155,133,72,0.18), transparent 55%),
+      radial-gradient(ellipse at 80% 90%, rgba(0,0,0,0.45), transparent 60%);
+    position: relative;
+  }
+  .telon::after {
+    content: "";
+    position: absolute; inset: 0;
+    pointer-events: none;
+    opacity: 0.55;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='1.1' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23g)' opacity='0.4'/></svg>");
+  }
+
+  .text-oro-shine {
+    background: linear-gradient(110deg, #6f5d2e 0%, #c8ad6b 30%, #d9c089 50%, #c8ad6b 70%, #6f5d2e 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: shine 8s linear infinite;
+  }
+  @keyframes shine {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+
+  .drop-cap::first-letter {
+    font-family: var(--font-cormorant), serif;
+    font-style: italic;
+    font-weight: 500;
+    float: left;
+    font-size: 5.5em;
+    line-height: 0.85;
+    padding-right: 0.12em;
+    padding-top: 0.06em;
+    color: #6d0000;
+  }
+
+  .vertical-text {
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
+  }
+
+  .border-oro-thin {
+    border: 1px solid rgba(200, 173, 107, 0.35);
+  }
+
+  .hairline-burdeos { border-color: rgba(74, 0, 0, 0.25); }
+
+  .marco-oro {
+    position: relative;
+  }
+  .marco-oro::before,
+  .marco-oro::after {
+    content: "";
+    position: absolute;
+    width: 28px; height: 28px;
+    border: 1px solid #9b8548;
+  }
+  .marco-oro::before { top: -10px; left: -10px; border-right: 0; border-bottom: 0; }
+  .marco-oro::after { bottom: -10px; right: -10px; border-left: 0; border-top: 0; }
+
+  .ornament::before, .ornament::after {
+    content: "·";
+    margin: 0 0.6em;
+    color: #9b8548;
+  }
+}

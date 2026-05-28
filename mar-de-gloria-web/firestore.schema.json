@@ -1,0 +1,81 @@
+{
+  "_comment": "Estructura Firestore para Mar de Gloria. Colecciones raíz: 'carta', 'reservas', 'experiencias', 'media', 'config'.",
+  "collections": {
+    "carta": {
+      "_doc": "Cada documento = un plato. Indexar por 'seccion' y 'orden'.",
+      "schema": {
+        "id": "string",
+        "seccion": "entrantes | pescados | carnes | guarniciones",
+        "nombre": "string",
+        "descripcion": "string",
+        "descripcionEn": "string",
+        "precio": "number",
+        "moneda": "EUR",
+        "alergenos": ["gluten", "lacteos", "pescado", "marisco", "huevo", "frutos_secos", "soja", "sulfitos"],
+        "destacado": "boolean",
+        "disponible": "boolean",
+        "imagen": "string (storage path)",
+        "orden": "number",
+        "creadoEn": "timestamp",
+        "actualizadoEn": "timestamp"
+      }
+    },
+    "reservas": {
+      "schema": {
+        "id": "string",
+        "nombre": "string",
+        "email": "string",
+        "telefono": "string",
+        "fecha": "timestamp",
+        "comensales": "number",
+        "ocasion": "string?",
+        "notas": "string?",
+        "estado": "pendiente | confirmada | cancelada | completada",
+        "origen": "web | telefono | walkin",
+        "creadaEn": "timestamp"
+      }
+    },
+    "experiencias": {
+      "_doc": "Menús degustación y eventos.",
+      "schema": {
+        "id": "string",
+        "titulo": "string",
+        "subtitulo": "string",
+        "descripcion": "string",
+        "precio": "number",
+        "duracionMin": "number",
+        "cubierta": "string (storage path)",
+        "activa": "boolean"
+      }
+    },
+    "media": {
+      "_doc": "Galería y assets editoriales.",
+      "schema": {
+        "id": "string",
+        "tipo": "interior | plato | fachada | equipo",
+        "alt": "string",
+        "url": "string",
+        "ancho": "number",
+        "alto": "number",
+        "orden": "number"
+      }
+    },
+    "config": {
+      "_doc": "Singleton 'sitio' con horarios, contacto, hero copy.",
+      "schema": {
+        "horarios": { "lunes_jueves": "string", "viernes_sabado": "string", "domingo": "string" },
+        "direccion": "string",
+        "telefono": "string",
+        "email": "string",
+        "instagram": "string",
+        "heroTitulo": "string",
+        "heroSubtitulo": "string"
+      }
+    }
+  },
+  "indices_recomendados": [
+    { "coleccion": "carta", "campos": ["seccion", "orden"] },
+    { "coleccion": "reservas", "campos": ["fecha", "estado"] }
+  ],
+  "reglas_resumen": "Lectura pública en 'carta', 'experiencias', 'media', 'config'. Escritura solo admin custom-claim. 'reservas': create público, read/update solo admin."
+}
